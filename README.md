@@ -55,7 +55,7 @@ The maybe-assign operator works as follows: `A ??= B` is the equivalent
 of:
 
 ```python
-if A is not None:
+if A is None:
     A = B
 ```
 
