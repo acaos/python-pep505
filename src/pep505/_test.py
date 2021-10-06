@@ -3,6 +3,9 @@
 import unittest
 
 class TestPep505(unittest.TestCase):
+    def notcalled(self):
+        self._notcalled = False
+
     def test_coalesce_simple(self):
         self.assertTrue(None ?? True)
 
@@ -13,16 +16,32 @@ class TestPep505(unittest.TestCase):
         l = [1, 2]
         self.assertEqual(l[None ?? 0], 1)
 
+    def test_coalesce_not_evaluated(self):
+        self._notcalled = True
+        x = True ?? self.notcalled()
+        self.assertTrue(self._notcalled)
+
     def test_maybe_assign_simple(self):
         x = None
         x ??= True
         self.assertTrue(x)
+
+    def test_maybe_assign_not_evaluated(self):
+        self._notcalled = True
+        x = True
+        x ??= self.notcalled()
+        self.assertTrue(self._notcalled)
 
     def test_maybe_dot_simple(self):
         self.assertIsNone(None?.foo)
 
     def test_maybe_subscript_simple(self):
         self.assertIsNone(None?[0])
+
+    def test_maybe_subscript_not_evaluated(self):
+        self._notcalled = True
+        x = None?[self.notcalled()]
+        self.assertTrue(self._notcalled)
 
     def test_complex(self):
         self.assertTrue(None?.foo?[0]?.foo ?? None ?? True ?? False)
