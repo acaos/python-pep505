@@ -114,6 +114,8 @@ The tests can be run with `python3 -m pep505.test`.
 
 This package stands on the shoulders of giants.
 
+PEP 505 was authored by Mark E. Haase and Steve Dower.
+
 The `.pegen.parser` and `.pegen.tokenizer` modules are from
 [pegen](https://github.com/we-like-parsers/pegen) by Guido van Rossum,
 Pablo Galindo, and Lysandros Nikolaou. They are included here solely
