@@ -3,6 +3,9 @@
 This package polyfills [PEP505](https://www.python.org/dev/peps/pep-0505/)'s
 None-aware operators to Python 3.8 through 3.10.
 
+Later versions of Python are expected to be supported, but the grammar will
+first need to be updated before doing so.
+
 ## Usage
 
 Using this package is as simple as placing the following at the top of
