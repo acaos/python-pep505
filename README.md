@@ -76,7 +76,7 @@ The maybe-dot operator works as follows: `A?.B` is the equivalent of:
 #### Maybe-Subscript (`?[`)
 
 The maybe-subscript operator `?[` prevents `TypeError` from occuring if
-the object for which an attribute is being accessed is `None`; instead,
+the object for which an item is being accessed is `None`; instead,
 the expression evaluates to `None`.
 
 The maybe-subscript operator works as follows: `A?[B]` is the equivalent of:
