@@ -1,10 +1,11 @@
 # Python PEP505
 
-This package polyfills [PEP505](https://www.python.org/dev/peps/pep-0505/)'s
+This package polyfills [PEP 505](https://www.python.org/dev/peps/pep-0505/)'s
 None-aware operators to Python 3.8 through 3.10.
 
 Later versions of Python are expected to be supported, but the grammar will
-first need to be updated before doing so.
+first need to be updated before doing so. Python versions earlier than 3.8
+will not be supported.
 
 ## Usage
 
@@ -104,6 +105,12 @@ python3 -m pegen src/grammar/python_pep505.gram -o src/pep505/parser.py
 
 Note that `parser.py` is then further modified slightly to use the local
 version of the `pegen` package (replacing `pegen.` imports with `.pegen.`).
+
+#### Temporary Variables
+
+In order to function, this module generates temporary variable names
+of the form `__coalesce_<lineno>_<column-offset>`. These are unlikely
+to conflict with any existing variables, but be aware of their existence.
 
 #### Running the Tests
 
