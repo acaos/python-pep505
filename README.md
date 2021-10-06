@@ -1,11 +1,14 @@
 # Python PEP505
 
+- GitHub: <https://github.com/acaos/python-pep505>
+- PyPI: <https://pypi.org/project/pep505/>
+
 This package polyfills [PEP 505](https://www.python.org/dev/peps/pep-0505/)'s
 None-aware operators to Python 3.8 through 3.10.
 
-Later versions of Python are expected to be supported, but the grammar will
-first need to be updated before doing so. Python versions earlier than 3.8
-will not be supported.
+Later versions of Python are expected to be supported, but the grammar (in
+this package) will first need to be updated before doing so. Python versions
+earlier than 3.8 will not be supported.
 
 ## Usage
 
