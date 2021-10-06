@@ -96,8 +96,11 @@ tokenizer and AST.
 
 The four operators above are transformed into an AST compatible with
 any version of Python 3.8 or later. The modified grammar can be found
-in `src/grammar/python_pep505.gram`, and compiled with the normal
-`python3 -m pegen src/grammar/python_pep505.gram -o src/pep505/parser.py`.
+in `src/grammar/python_pep505.gram`, and compiled with the normal:
+
+```sh
+python3 -m pegen src/grammar/python_pep505.gram -o src/pep505/parser.py
+```
 
 Note that `parser.py` is then further modified slightly to use the local
 version of the `pegen` package (replacing `pegen.` imports with `.pegen.`).
