@@ -48,6 +48,7 @@ from importlib.util import spec_from_file_location, decode_source
 from . import parser as python_parser
 
 
+PEP505_DEBUG = os.getenv('PYTHON_PEP505_DEBUG')
 COALESCE_REGEX = re.compile(r'(\?\?|\?\.|\?\[)')
 
 
@@ -88,7 +89,9 @@ class Pep505Loader(Loader):
         return None
 
     def exec_module(self, module):
-        sys.stderr.write(f'parsing and executing {self._filename}\n')
+        if PEP505_DEBUG:
+            sys.stderr.write(f'parsing and executing {self._filename}\n')
+
         with open(self._filename, 'r') as f:
             tokengen = tokenize.generate_tokens(f.readline)
             tokenizer = python_parser.Tokenizer(tokengen)
