@@ -49,7 +49,8 @@ from . import parser as python_parser
 
 
 PEP505_DEBUG = os.getenv('PYTHON_PEP505_DEBUG')
-COALESCE_REGEX = re.compile(r'(\?\?|\?\.|\?\[)')
+COALESCE_REGEX = re.compile(r'\n#\s+-\*- parsing: pep505 -\*-')
+FULLNAME_TO_LOADER = {}
 
 
 class Pep505MetaPathFinder(MetaPathFinder):
@@ -67,13 +68,22 @@ class Pep505MetaPathFinder(MetaPathFinder):
                 entry = os.getcwd()
             filename = os.path.join(entry, name + '.py')
             if os.path.exists(filename):
+                if PEP505_DEBUG:
+                    sys.stderr.write(f'checking {filename!r} for PEP505 parsing ... ')
                 with open(filename, 'rb') as f:
                     contents = f.read()
                     source = decode_source(contents)
 
                     # TODO: optimize this so the file doesn't get read twice
                     if COALESCE_REGEX.search(source) is not None:
-                        return spec_from_file_location(fullname, filename, loader=Pep505Loader(filename))
+                        if PEP505_DEBUG:
+                            sys.stderr.write(f'found\n')
+                        loader = Pep505Loader(filename)
+                        FULLNAME_TO_LOADER[fullname] = loader
+                        return spec_from_file_location(fullname, filename, loader=loader)
+                    else:
+                        if PEP505_DEBUG:
+                            sys.stderr.write(f'not found\n')
 
                 return None
 
@@ -88,18 +98,31 @@ class Pep505Loader(Loader):
     def create_module(self, spec):
         return None
 
-    def exec_module(self, module):
-        if PEP505_DEBUG:
-            sys.stderr.write(f'parsing and executing {self._filename}\n')
-
+    def _parse_module(self):
         with open(self._filename, 'r') as f:
             tokengen = tokenize.generate_tokens(f.readline)
             tokenizer = python_parser.Tokenizer(tokengen)
             parser = python_parser.PythonParser(tokenizer)
             tree = parser.start()
 
-        code_object = compile(tree, self._filename, 'exec')
+        return compile(tree, self._filename, 'exec')
+
+    def exec_module(self, module):
+        if PEP505_DEBUG:
+            sys.stderr.write(f'parsing and executing {self._filename!r}\n')
+
+        code_object = self._parse_module()
         exec(code_object, module.__dict__)
+
+    @classmethod
+    def get_code(cls, fullname):
+        if fullname in FULLNAME_TO_LOADER:
+            return FULLNAME_TO_LOADER[fullname]._parse_module()
+        return None
+
+    @classmethod
+    def get_source(cls, fullname):
+        return None
 
 activated = False
 
@@ -107,6 +130,8 @@ def activate():
     global activated
 
     if not activated:
+        if PEP505_DEBUG:
+            sys.stderr.write(f'activating PEP505 import hook\n')
         finder = Pep505MetaPathFinder()
         sys.meta_path.insert(0, finder)
         activated = True

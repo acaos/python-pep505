@@ -12,15 +12,17 @@ earlier than 3.8 will not be supported.
 
 ## Usage
 
-Using this package is as simple as placing the following at the top of
-your main module, before any other imports are performed. Note that
-this package will not affect any modules created before the call to
-`activate()`; hence, it will not work in the main module itself.
+After this package has been installed, it is activated by placing the
+following at the top of any module you wish to use null-coalescing
+operators in:
 
 ```python
-import pep505
-pep505.activate()
+# -*- parsing: pep505 -*-
 ```
+
+Note that this will not work for code executed directly from the command
+line (e.g. `python3 foo.py`), but will work if you execute the code as
+a module (e.g. `python3 -m foo`).
 
 
 ## Technical Information
@@ -114,6 +116,20 @@ version of the `pegen` package (replacing `pegen.` imports with `.pegen.`).
 In order to function, this module generates temporary variable names
 of the form `__coalesce_<lineno>_<column-offset>`. These are unlikely
 to conflict with any existing variables, but be aware of their existence.
+
+#### Modifying the Wheel / Installing from Source
+
+Note that after using `python3 -m build` to build the wheel, it is necessary
+to manually add the `pep505.pth` file to the wheel, with (for example):
+
+```sh
+cd src
+zip -g ../dist/pep505-*-py3-none-any.whl pep505.pth
+cd ..
+```
+
+If installing from source, the `src/pep505.pth` file must be placed in your
+`site-packages` directory.
 
 #### Running the Tests
 
