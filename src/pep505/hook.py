@@ -49,7 +49,7 @@ from . import parser as python_parser
 
 
 PEP505_DEBUG = os.getenv('PYTHON_PEP505_DEBUG')
-COALESCE_REGEX = re.compile(r'\n#\s+-\*- parsing: pep505 -\*-')
+COALESCE_REGEX = re.compile(r'(?:^|\n)#\s+-\*- parsing: pep505 -\*-')
 FULLNAME_TO_LOADER = {}
 
 
