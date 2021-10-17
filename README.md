@@ -114,22 +114,15 @@ version of the `pegen` package (replacing `pegen.` imports with `.pegen.`).
 #### Temporary Variables
 
 In order to function, this module generates temporary variable names
-of the form `__coalesce_<lineno>_<column-offset>`. These are unlikely
+of the form `__pep505_<lineno>_<column-offset>`. These are unlikely
 to conflict with any existing variables, but be aware of their existence.
 
-#### Modifying the Wheel / Installing from Source
+#### Installing from Source
 
-Note that after using `python3 -m build` to build the wheel, it is necessary
-to manually add the `pep505.pth` file to the wheel, with (for example):
+This package depends on the [parsinghook](https://pypi.org/project/parsinghook/)
+package. If that package is also installed from source, it is necessary to
+install the `parsinghook.pth` file from that package in `site-packages`.
 
-```sh
-cd src
-zip -g ../dist/pep505-*-py3-none-any.whl pep505.pth
-cd ..
-```
-
-If installing from source, the `src/pep505.pth` file must be placed in your
-`site-packages` directory.
 
 #### Running the Tests
 
@@ -149,7 +142,4 @@ to prevent this package from pulling in pegen's Flask and other
 dependencies.
 
 In addition, the Python parser in this package is built using pegen.
-
-The `pep505.hook.activate()` function is based on André Roberge's
-[ideas](https://github.com/aroberge/ideas) package.
 

@@ -1221,7 +1221,7 @@ coalesce:
               test=ast.Compare(
                   left=ast.NamedExpr(
                       target=ast.Name(
-                          id=f'__coalesce_{a.lineno}_{a.col_offset}',
+                          id=f'__pep505_{a.lineno}_{a.col_offset}',
                           ctx=Store,
                           LOCATIONS
                       ),
@@ -1233,7 +1233,7 @@ coalesce:
                   LOCATIONS
               ),
               body=ast.Name(
-                  id=f'__coalesce_{a.lineno}_{a.col_offset}',
+                  id=f'__pep505_{a.lineno}_{a.col_offset}',
                   ctx=Load,
                   LOCATIONS
               ),
@@ -1258,7 +1258,7 @@ primary:
               test=ast.Compare(
                   left=ast.NamedExpr(
                       target=ast.Name(
-                          id=f'__coalesce_{a.lineno}_{a.col_offset}',
+                          id=f'__pep505_{a.lineno}_{a.col_offset}',
                           ctx=Store,
                           LOCATIONS
                       ),
@@ -1271,7 +1271,7 @@ primary:
               ),
               body=ast.Attribute(
                   value=ast.Name(
-                      id=f'__coalesce_{a.lineno}_{a.col_offset}',
+                      id=f'__pep505_{a.lineno}_{a.col_offset}',
                       ctx=Load,
                       LOCATIONS
                   ),
@@ -1297,7 +1297,7 @@ primary:
               test=ast.Compare(
                   left=ast.NamedExpr(
                       target=ast.Name(
-                          id=f'__coalesce_{a.lineno}_{a.col_offset}',
+                          id=f'__pep505_{a.lineno}_{a.col_offset}',
                           ctx=Store,
                           LOCATIONS
                       ),
@@ -1310,7 +1310,7 @@ primary:
               ),
               body=ast.Subscript(
                   value=ast.Name(
-                      id=f'__coalesce_{a.lineno}_{a.col_offset}',
+                      id=f'__pep505_{a.lineno}_{a.col_offset}',
                       ctx=Load,
                       LOCATIONS
                   ),

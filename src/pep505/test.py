@@ -2,9 +2,6 @@
 
 import unittest
 
-from .hook import activate
-activate()
-
 from ._test import TestPep505
 
 
